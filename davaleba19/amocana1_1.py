@@ -12,14 +12,24 @@ class LinkedList:
         # initialize first - head object
         self.head = None
 
+    # create append method
     def append(self, data):
+        # Append a new node with given data to the end of the linked list
         new_node = Node(data)
+
+        # If the linked list is empty, set the new node as the head
         if self.head is None:
             self.head = new_node
             return
+
+        # let's say head is the last node
         last_node = self.head
+
+        # while last node's next element exists(is not None) it gets meaning of next element
         while last_node.next:
             last_node = last_node.next
+
+        # when last node's next is None we add new node
         last_node.next = new_node
 
     def insert(self, data, index):

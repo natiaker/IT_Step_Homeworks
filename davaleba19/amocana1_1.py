@@ -22,7 +22,7 @@ class LinkedList:
             self.head = new_node
             return
 
-        # Let's say head is the last node
+        # Start from the beginning of the linked list
         last_node = self.head
 
         # While last node's next element exists(is not None) it gets meaning of next element
@@ -56,15 +56,20 @@ class LinkedList:
         # Inserting the new node after the current node in the linked list
         current_node.next = new_node
 
+    # Remove the node at the specified index from the linked list
     def remove(self, index):
+        # if index is 0, head will be updated to the next element
         if index == 0:
             self.head = self.head.next
             return
+
         current_node = self.head
         current_index = 0
+        # Traverse to the node just before the target index to locate a specific node in the linked list
         while current_index < index - 1 and current_node.next:
             current_index += 1
             current_node = current_node.next
+        # Set the next refer of the current node to refer to the node that comes after the next, next node.
         if current_node.next:
             current_node.next = current_node.next.next
 

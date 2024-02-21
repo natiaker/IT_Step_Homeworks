@@ -1,18 +1,18 @@
-# create a Node class
+# Create a Node class
 class Node:
     def __init__(self, data):
-        # initialize object with given data and info about next object
+        # Initialize object with given data and info about next object
         self.data = data
         self.next = None
 
 
-# create a LinkedList class
+# Create a LinkedList class
 class LinkedList:
     def __init__(self):
-        # initialize first - head object
+        # Initialize first - head object
         self.head = None
 
-    # create append method
+    # Create append method
     def append(self, data):
         # Append a new node with given data to the end of the linked list
         new_node = Node(data)
@@ -22,28 +22,38 @@ class LinkedList:
             self.head = new_node
             return
 
-        # let's say head is the last node
+        # Let's say head is the last node
         last_node = self.head
 
-        # while last node's next element exists(is not None) it gets meaning of next element
+        # While last node's next element exists(is not None) it gets meaning of next element
         while last_node.next:
             last_node = last_node.next
 
-        # when last node's next is None we add new node
+        # When last node's next is None we add new node
         last_node.next = new_node
 
+    # Create insert method
     def insert(self, data, index):
+        # Insert a new node with given data at the specified index in the linked list
         new_node = Node(data)
+
+        # If index is 0, insert at the beginning of the linked list
         if index == 0:
             new_node.next = self.head
             self.head = new_node
             return
+
         current_node = self.head
         current_index = 0
+        # Traverse the linked list until reaching the node just before the insertion index
+        # (while current node's next is not none and current index < index - 1),
+        # move to the next node and increment the index by 1 at each iteration
         while current_node.next and current_index < index - 1:
             current_node = current_node.next
             current_index += 1
+        # Connect the new node to the rest of the linked list
         new_node.next = current_node.next
+        # Inserting the new node after the current node in the linked list
         current_node.next = new_node
 
     def remove(self, index):
@@ -57,6 +67,7 @@ class LinkedList:
             current_node = current_node.next
         if current_node.next:
             current_node.next = current_node.next.next
+
     def display_info(self):
         current_node = self.head
         while current_node is not None:

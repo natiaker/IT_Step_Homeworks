@@ -73,21 +73,29 @@ class LinkedList:
         if current_node.next:
             current_node.next = current_node.next.next
 
+    # Display the data of all nodes in the linked list
     def display_info(self):
+        # Start from the head of the linked list
         current_node = self.head
+
         while current_node is not None:
             print(current_node.data, end=" -> ")
+            # Move to the next node
             current_node = current_node.next
         print()
 
 
+# Create a new linked_list object
 linked_list = LinkedList()
+# Append elements to the linked list and display info
 linked_list.append(5)
 linked_list.append(10)
 linked_list.append(2)
 linked_list.display_info()
+# insert elements at the specific index and display info
 linked_list.insert(11, 1)
 linked_list.insert(15, 2)
 linked_list.display_info()
+# remove element and display info
 linked_list.remove(2)
 linked_list.display_info()

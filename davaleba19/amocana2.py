@@ -29,3 +29,23 @@ class LinkedList:
 
         # When last node's next is None we add new node
         last_node.next = new_node
+
+    def display_info(self):
+        # Start from the head of the linked list
+        current_node = self.head
+
+        while current_node is not None:
+            print(current_node.data, end=" -> ")
+            # Move to the next node
+            current_node = current_node.next
+        print()
+
+
+# Create a new linked_list object
+linked_list = LinkedList()
+# Append elements to the linked list and display info
+linked_list.append(5)
+linked_list.append(6)
+linked_list.append(7)
+linked_list.append(8)
+linked_list.display_info()

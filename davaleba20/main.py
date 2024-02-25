@@ -9,7 +9,7 @@ class Node:
 
 # Function to print leaf nodes
 def printLeafNodes(node):
-    # If node is none return
+    # If node is none, return
     if node is None:
         return
     # If node has no child - left and right - nodes, it is a leaf node
@@ -18,6 +18,23 @@ def printLeafNodes(node):
     # Call recursion for left and right child nodes
     printLeafNodes(node.left)
     printLeafNodes(node.right)
+
+
+# function to count edges
+def countEdges(node):
+    # If node doesn't exist, return 0 edges
+    if node is None:
+        return 0
+    # If node has no children, return 0
+    if node.left is None and node.right is None:
+        return 0
+    # If node has no left child, it has right child and adds 1, same for the right child
+    if node.left is None:
+        return 1 + countEdges(node.right)
+    if node.right is None:
+        return 1 + countEdges(node.left)
+    # if node has 2 children, add 2
+    return 2 + countEdges(node.left) + countEdges(node.right)
 
 
 # Create a binary tree
@@ -30,3 +47,4 @@ root.right.left = Node(6)
 root.right.right = Node(7)
 root.right.left.left = Node(8)
 printLeafNodes(root)
+print(countEdges(root))

@@ -5,6 +5,9 @@ class Product:
         self.price = price
         self.quantity = quantity
 
+    def __str__(self):
+        return f'Product name: {self.name}, price: {self.price}, quantity: {self}'
+
 
 # create product instances
 product1 = Product('Banana', 3.00, 2)

@@ -1,7 +1,7 @@
-# Create Product class
 import json
 
 
+# Create Product class
 class Product:
     def __init__(self, name, price, quantity):
         self.name = name

@@ -25,23 +25,29 @@ print("List products: ")
 for product in lst:
     print(product)
 
+
+# create serialization method
 def serialization_func(obj):
     if isinstance(obj, Product):
         return {"Name": obj.name, "Price": obj.price, "Quantity": obj.quantity}
     raise TypeError(f"Object is not type of Product")
 
 
+# translate product class into json and write in a file
 with open("products.json", "w") as json_file:
     json.dump(lst, json_file, default=serialization_func, indent=4)
 
 
+# create deserialization method
 def deserialization_func(json_obj):
     return Product(json_obj['Name'], json_obj['Price'], json_obj["Quantity"])
 
 
+# Read products file, translate json into Product class
 with open("products.json", "r") as file:
     product_data = json.load(file, object_hook=deserialization_func)
 
+# Print all products information
 print("\nDeserialized products: ")
 for product in product_data:
     print(product)

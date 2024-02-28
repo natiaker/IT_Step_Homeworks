@@ -1,4 +1,7 @@
 # Create Product class
+import json
+
+
 class Product:
     def __init__(self, name, price, quantity):
         self.name = name
@@ -15,7 +18,18 @@ product2 = Product('Orange', 4.50, 4)
 product3 = Product('Apple', 2.20, 12)
 product4 = Product('Kiwi', 3.00, 7)
 
+# add products to list
 lst = [product1, product2, product3, product4]
+
+
+def serialization_func(obj):
+    if isinstance(obj, Product):
+        return {"Name": obj.name, "Price": obj.price, "Quantity": obj.quantity}
+    raise TypeError(f"Object is not type of Product")
+
+
+with open("products.json", "w") as json_file:
+    json.dump(lst, json_file, default=serialization_func, indent=4)
 
 for product in lst:
     print(product)

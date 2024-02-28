@@ -21,6 +21,9 @@ product4 = Product('Kiwi', 3.00, 7)
 # add products to list
 lst = [product1, product2, product3, product4]
 
+print("List products: ")
+for product in lst:
+    print(product)
 
 def serialization_func(obj):
     if isinstance(obj, Product):
@@ -31,5 +34,14 @@ def serialization_func(obj):
 with open("products.json", "w") as json_file:
     json.dump(lst, json_file, default=serialization_func, indent=4)
 
-for product in lst:
+
+def deserialization_func(json_obj):
+    return Product(json_obj['Name'], json_obj['Price'], json_obj["Quantity"])
+
+
+with open("products.json", "r") as file:
+    product_data = json.load(file, object_hook=deserialization_func)
+
+print("\nDeserialized products: ")
+for product in product_data:
     print(product)

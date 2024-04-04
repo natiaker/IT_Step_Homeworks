@@ -5,7 +5,7 @@ client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 print("Client socket created")
 
 # specify the server's IP address and port to connect to
-SERVER_IP = '0.0.0.0'
+SERVER_IP = '127.0.0.1'
 SERVER_PORT = 8000
 
 # connect the client socket to the server

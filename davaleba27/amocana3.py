@@ -5,7 +5,7 @@
 import asyncio
 
 
-# define an asynchronous function to calculate the square of a number
+# define an asynchronous function to calculate the square of a number if the number is even
 async def square(n):
     # await is_even coroutine to check if the number is even
     if await is_even(n):

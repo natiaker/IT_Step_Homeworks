@@ -55,4 +55,5 @@ class TestBankAccount(unittest.TestCase):
         self.assertEqual(self.account.display_balance(), "Current Balance: $1050")
 
 
-
+if __name__ == "__main__":
+    unittest.main()

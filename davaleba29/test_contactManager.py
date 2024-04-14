@@ -13,3 +13,10 @@ class TestContactManager(unittest.TestCase):
         self.assertEqual(self.manager.add_contact("Natia", 555555555), "Contact 'Natia' already exists.")
         self.assertEqual(self.manager.add_contact("Natia", 999999999), "Contact 'Natia' already exists.")
 
+    def test_remove_contact(self):
+        self.manager.add_contact("Helen", 987654321)
+        self.manager.add_contact("Bill", 123456789)
+        self.assertEqual(self.manager.remove_contact("Helen"), "Contact 'Helen' removed successfully.")
+        self.assertEqual(self.manager.remove_contact("Bill"), "Contact 'Bill' removed successfully.")
+        self.assertEqual(self.manager.remove_contact("Brad"), "Contact 'Brad' not found.")
+        self.assertEqual(self.manager.remove_contact("Michele"), "Contact 'Michele' not found.")

@@ -20,7 +20,22 @@ class TestBankAccount(unittest.TestCase):
         self.assertEqual(self.account.withdraw(-20), "Insufficient funds or invalid amount for withdrawal.")
         self.assertEqual(self.account.withdraw(795), "Withdrew $795. New balance: $0")
 
-
+    def test_display_balance(self):
+        self.assertEqual(self.account.display_balance(), "Current Balance: $1000")
+        self.account.deposit(300)
+        self.assertEqual(self.account.display_balance(), "Current Balance: $1300")
+        self.account.deposit(-200)
+        self.assertEqual(self.account.display_balance(), "Current Balance: $1300")
+        self.account.deposit(0)
+        self.assertEqual(self.account.display_balance(), "Current Balance: $1300")
+        self.account.withdraw(200)
+        self.assertEqual(self.account.display_balance(), "Current Balance: $1100")
+        self.account.withdraw(50)
+        self.assertEqual(self.account.display_balance(), "Current Balance: $1050")
+        self.account.withdraw(0)
+        self.assertEqual(self.account.display_balance(), "Current Balance: $1050")
+        self.account.withdraw(2000)
+        self.assertEqual(self.account.display_balance(), "Current Balance: $1050")
 
 
 

@@ -41,6 +41,17 @@ def insert():
         return redirect(url_for('index'))
 
 
+@app.route('/delete/<id>', methods=['GET', 'POST'])
+def delete(id):
+    car = Car.query.get(id)
+
+    if car:
+        db.session.delete(car)
+        db.session.commit()
+
+    return redirect(url_for('index'))
+
+
 if __name__ == "__main__":
 
     with app.app_context():

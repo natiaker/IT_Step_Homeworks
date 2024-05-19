@@ -1,0 +1,26 @@
+
+{% extends 'base.html' %}
+
+{% block title %} <title>Home Page</title> {% endblock %}
+
+
+{% block content %}
+    <div class="d-flex" style="flex-wrap: wrap;">
+    {% for book in books %}
+        <div class="card m-4" style="width: 21%;">
+          <div class="card-body">
+              <h5 class="card-title"> {{ book.title }} </h5>
+              <p class="card-text"> {{ book.author }} </p>
+              <img src={{ book.img_link }} class="card-img-top" alt="...">
+          </div>
+           <div class="mx-auto my-2">
+               <a href="{% url 'books:book_details' book.id %}" class="btn btn-primary">Book Details</a>
+           </div>
+        </div>
+
+        {% empty %}
+
+        <h1>No Content</h1>
+    {% endfor %}
+    </div>
+{% endblock %}

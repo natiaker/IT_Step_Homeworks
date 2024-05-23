@@ -1,0 +1,39 @@
+
+{% extends 'base.html' %}
+
+{% block title %} {{ event.title }} {% endblock %}
+
+{% block body %}
+    <div class="d-flex">
+        <div class="card m-4" style="max-width: 70%">
+            <div class="card-body" >
+              <img src="https://1000logos.net/wp-content/uploads/2020/02/The-Doors-Logo.jpg" class="card-img-top" alt="cover" style="max-width: 50%">
+              <h5 class="card-title">{{ event.title }}</h5>
+                    <p class="card-text">{{ event.description }}</p>
+                    <p class="card-text"><strong>Date:</strong>  {{ event.date }}</p>
+                    <p class="card-text"><strong>Location:</strong>  {{ event.location }}</p>
+                    <p class="card-text"> <strong>Category:</strong>
+                        {% for category in event.categories.all %}
+                            <span class="badge text-bg-secondary">{{ category.name }}</span>
+                        {% endfor %}
+                    </p>
+              <a href="{% url 'mainapp:home_page' %}" class="btn btn-primary">Go Back</a>
+              <a href="{% url 'mainapp:add_attendee' event.id %}" class="btn btn-success">Register</a>
+            </div>
+        </div>
+
+        <div class="card m-4">
+            <h5 class="m-4">Registered Attendees:</h5>
+            <ul mx-2>
+            {% for attendee in attendees%}
+                <li>
+                    <div class="d-flex justify-content-between">
+                        {{ attendee.name }}
+                        <a href="{% url 'mainapp:remove_attendee' attendee.id %}" style="color: darkred; margin-right: 16px;">Delete</a>
+                    </div>
+                </li>
+            {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endblock %}

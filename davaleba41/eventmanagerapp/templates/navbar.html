@@ -22,10 +22,13 @@
           </a>
           <ul class="dropdown-menu">
 
+            {% if not user.is_authenticated %}
             <li><a class="dropdown-item" href="/login">Login</a></li>
             <li><a class="dropdown-item" href="{% url 'main_app:sign_up' %}">Sign Up</a></li>
+            {% endif %}
 
             {% if user.is_authenticated %}
+            <li><a class="dropdown-item" href="{% url 'main_app:user_profile' %}">{{ user }}'s Profile</a></li>
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="/logout">Logout</a></li>
             {% endif %}
@@ -34,7 +37,7 @@
         </li>
       </ul>
       <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="event_query">
         <button class="btn btn-outline-success" type="submit">Search</button>
       </form>
     </div>

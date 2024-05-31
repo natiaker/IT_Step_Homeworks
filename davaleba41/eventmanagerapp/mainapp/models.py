@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.db import models
 
 
@@ -20,10 +21,12 @@ class Event(models.Model):
     date = models.DateField()
     location = models.CharField(max_length=50)
     categories = models.ManyToManyField(Category)
+    participants = models.ManyToManyField(User, related_name='events_participants')
 
     def __str__(self):
         return self.title
 
     class Meta:
         db_table = 'event'
+
 

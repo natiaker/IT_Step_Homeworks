@@ -1,13 +1,20 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Event
 from .forms import RegisterForm, EventForm
 from django.contrib.auth import logout, login
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 
 
 # @login_required(login_url='/login')
 def homepage(request):
-    events = Event.objects.all()
+    query = request.GET.get('event_query')
+
+    if query:
+        events = Event.objects.filter(Q(title__icontains=query) | Q(location__icontains=query))
+    else:
+        events = Event.objects.all()
+
     return render(request, 'index.html', {'events': events})
 
 
@@ -53,11 +60,30 @@ def remove_event(request, event_id):
 
 
 def event_details(request, event_id):
-    event = Event.objects.get(id=event_id)
+    event = Event.objects.get(pk=event_id)
 
     return render(request, 'event_details.html', {'event': event})
 
 
+@login_required(login_url='/login')
+def user_profile(request):
+    events = Event.objects.filter(participants=request.user.id)
+    return render(request, 'user_profile.html', {'events': events})
+
+
+@login_required(login_url='/login')
 def participate(request, event_id):
-    pass
+    event = get_object_or_404(Event, pk=event_id)
+    event.participants.add(request.user)
+
+    return redirect('main_app:homepage')
+
+
+def remove_participation(request, event_id):
+    event = get_object_or_404(Event, pk=event_id)
+    if request.user in event.participants.all():
+        event.participants.remove(request.user)
+
+    return redirect('main_app:user_profile')
+
 

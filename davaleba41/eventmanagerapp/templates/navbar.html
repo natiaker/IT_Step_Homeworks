@@ -9,11 +9,13 @@
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="{% url 'main_app:homepage' %}">Home</a>
         </li>
-        {% if user.is_superuser %}
+
+        {% if user.is_authenticated and perms.mainapp.add_event %}
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" style="color: blue" href="{% url 'main_app:add_event' %}">Add New Event</a>
         </li>
         {% endif %}
+
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             {{ user }}

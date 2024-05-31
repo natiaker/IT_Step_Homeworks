@@ -25,5 +25,7 @@ urlpatterns = [
     path('sign_up/', views.sign_up, name='sign_up'),
     path('logout/', views.logout_user, name='logout_user'),
     path('add_event/', views.add_event, name='add_event'),
-    path('remove_event/<int:event_id>/', views.remove_event, name='remove_event')
+    path('remove_event/<int:event_id>/', views.remove_event, name='remove_event'),
+    path('event_details/<int:event_id>/', views.event_details, name='event_details'),
+    path('participate/<int:event_id>, views.participate', name='participate'),
 ]

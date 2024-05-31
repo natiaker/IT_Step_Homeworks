@@ -6,6 +6,8 @@
 
 {% block body %}
 
+  {% if user.is_authenticated and perms.mainapp.add_event %}
+
   <h1>Add New Event</h1>
 
   <form method="post">
@@ -17,5 +19,10 @@
     <button type="submit" class="btn btn-success">Add Event</button>
 
   </form>
+
+  {% else %}
+    <h1>You do not have a permission to add an event</h1>
+
+  {% endif %}
 
 {% endblock %}

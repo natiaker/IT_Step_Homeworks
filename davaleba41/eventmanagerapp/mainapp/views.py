@@ -51,3 +51,13 @@ def remove_event(request, event_id):
 
     return redirect('main_app:homepage')
 
+
+def event_details(request, event_id):
+    event = Event.objects.get(id=event_id)
+
+    return render(request, 'event_details.html', {'event': event})
+
+
+def participate(request, event_id):
+    pass
+

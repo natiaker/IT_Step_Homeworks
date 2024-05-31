@@ -23,10 +23,10 @@
                         {% endfor %}
                     </p>
 
-                    <a href="#" class="btn btn-primary">Go to {{ event.title }}</a>
+                    <a href="{% url 'main_app:event_details' event.id %}" class="btn btn-primary">Go to {{ event.title }}</a>
                     <br>
 
-                    {% if user.is_superuser %}
+                    {% if user.is_authenticated and perms.mainapp.delete_event %}
                     <a href="{% url 'main_app:remove_event' event.id %}" class="btn btn-danger mt-2">Delete</a>
                     <br>
                     {% endif %}

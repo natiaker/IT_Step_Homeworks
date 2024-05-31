@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %} Homepage {% endblock %}
+
+{% block body %}
+
+<h1>Upcoming events</h1>
+
+    <div class="container">
+        <div class="row">
+
+            {% for event in events %}
+            <div class="card m-2" style="width: 18rem;">
+                <img src={{ event.img_address }} class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">{{ event.title }}</h5>
+                    <p class="card-text">{{ event.description|truncatechars:100 }}</p>
+                    <p class="card-text"><strong>Date:</strong> {{ event.date }}</p>
+                    <p class="card-text"><strong>Location:</strong> {{ event.location }}</p>
+                    <p class="card-text"><strong>Category:</strong>
+                        {% for category in event.categories.all %}
+                        <span class="badge text-bg-secondary">{{ category.name }}</span>
+                        {% endfor %}
+                    </p>
+
+                    <a href="#" class="btn btn-primary">Go to {{ event.title }}</a>
+                    <br>
+
+                    {% if user.is_superuser %}
+                    <a href="{% url 'main_app:remove_event' event.id %}" class="btn btn-danger mt-2">Delete</a>
+                    <br>
+                    {% endif %}
+
+                    {% if user.is_authenticated %}
+                    <a href="#" class="btn btn-success mt-2">Participate</a>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+
+{% endblock %}

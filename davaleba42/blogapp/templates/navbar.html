@@ -8,9 +8,13 @@
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
           <a class="nav-link" href="{% url 'blog:homepage' %}">Home</a>
+
+        {% if user.is_authenticated and user.is_superuser or perms.blog.add_post %}
         <li class="nav-item">
           <a class="nav-link" href="{% url 'blog:add_post' %}">Create Post</a>
         </li>
+        {% endif %}
+
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             {{ user }}
@@ -19,7 +23,7 @@
 
             {% if not user.is_authenticated %}
             <li><a class="dropdown-item" href="{% url 'blog:login' %}">Login</a></li>
-            <li><a class="dropdown-item" href="#">Sign Up</a></li>
+            <li><a class="dropdown-item" href="{% url 'blog:sign_up' %}">Sign Up</a></li>
             {% endif %}
 
             {% if user.is_authenticated %}

@@ -1,8 +1,9 @@
+from django.contrib.auth import logout
 from django.db.models import Q
 from django.forms import BaseModelForm
 from django.shortcuts import render, redirect
 from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin, PermissionRequiredMixin
-from django.views.generic import TemplateView, DetailView, CreateView, DeleteView
+from django.views.generic import TemplateView, DetailView, CreateView, DeleteView, View
 from django.contrib.auth.views import LoginView, LogoutView
 from django.http import HttpRequest
 from django.http.response import HttpResponse, HttpResponseRedirect
@@ -57,7 +58,7 @@ class RemovePostView(UserPassesTestMixin, DeleteView):
 
     def test_func(self) -> bool | None:
         post = self.get_object()
-        return self.request.user == post.author
+        return self.request.user == post.author or self.request.user.has_perm(self.permission_required)
 
     def handle_no_permission(self) -> HttpResponseRedirect:
         return redirect('blog:homepage')
@@ -74,9 +75,10 @@ class UserLoginView(UserPassesTestMixin, LoginView):
         return redirect('blog:homepage')
 
 
-class UserLogoutView(LogoutView):
-    template_name = 'registration/logged_out.html'
-    success_url = reverse_lazy('blog:homepage')
+class UserLogoutView(View):
+    def get(self, request):
+        logout(request)
+        return redirect('blog:login')
 
 
 class SignUpView(CreateView):
